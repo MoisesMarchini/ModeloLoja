@@ -1,10 +1,12 @@
 ﻿using ModeloLoja.Scripts;
+using ModeloLoja.Config;
 using ModeloLoja.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,67 +17,92 @@ namespace ModeloLoja.Products
     public partial class ProdutoEdit : UserControl
     {
         public Produto produto;
+        private string resourcesPath = MainConfig.resourcesPath;
+
         public ProdutoEdit(Produto _produto)
         {
             InitializeComponent();
             produto = _produto;
         }
 
-        private void lblNomeProdutoEdit_Click(object sender, EventArgs e)
-        {
-            lblNomeProdutoEdit.Visible = false;
-            txtNomeProdutoEdit.Text = lblNomeProdutoEdit.Text;
-            txtNomeProdutoEdit.Focus();
-        }
         private void txtNomeProdutoEdit_Leave(object sender, EventArgs e)
         {
-            lblNomeProdutoEdit.Text = txtNomeProdutoEdit.Text;
-            produto.nome = lblNomeProdutoEdit.Text;
-            lblNomeProdutoEdit.Visible = true;
-        }
-        private void lblDescProdutoEdit_Click(object sender, EventArgs e)
-        {
-            lblDescProdutoEdit.Visible = false;
-            txtDescProdutoEdit.Text = lblDescProdutoEdit.Text;
-            txtDescProdutoEdit.Focus();
+            produto.nome = txtNomeProdutoEdit.Text;
         }
         private void txtDescProdutoEdit_Leave(object sender, EventArgs e)
         {
-            lblDescProdutoEdit.Text = txtDescProdutoEdit.Text;
-            produto.descricao = lblDescProdutoEdit.Text;
-            lblDescProdutoEdit.Visible = true;
-        }
-        private void lblPrecoProdutoEdit_Click(object sender, EventArgs e)
-        {
-            lblPrecoProdutoEdit.Visible = false;
-            txtPrecoProdutoEdit.Text = lblPrecoProdutoEdit.Text;
-            txtPrecoProdutoEdit.Focus();
+            produto.descricao = txtDescProdutoEdit.Text;
         }
         private void txtPrecoProdutoEdit_Leave(object sender, EventArgs e)
         {
             try
             {
                 produto.preco = int.Parse(txtPrecoProdutoEdit.Text);
-                lblPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
+                txtPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
             }
             catch (Exception ex)
             {
                 produto.preco = 12;
                 MessageBox.Show("Deve ser introduzido um valor\n"+ex.Message);
             }
-            lblPrecoProdutoEdit.Visible = true;
         }
 
         private void ProdutoEdit_Load(object sender, EventArgs e)
         {
-            lblNomeProdutoEdit.Text = produto.nome;
-            lblDescProdutoEdit.Text = produto.descricao;
-            lblPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
+            txtNomeProdutoEdit.TabIndex = 1;
+            txtDescProdutoEdit.TabIndex = 2;
+            txtPrecoProdutoEdit.TabIndex = 3;
+            txtNomeProdutoEdit.Text = produto.nome;
+            txtDescProdutoEdit.Text = produto.descricao;
+            txtPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
+            if (produto.imgPath != null && produto.imgPath != "")
+            {
+                picProdutoEdit.BackgroundImage = Image.FromFile(resourcesPath+produto.imgPath);
+            }
         }
 
         private void btnSalvarProduto_Click(object sender, EventArgs e)
         {
             Database.EditarProduto(produto);
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            Database.ExcluirProduto(produto);
+            this.DestroyHandle();
+        }
+
+        private void btnAddPicProduto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog newPic = new OpenFileDialog();
+            newPic.InitialDirectory = resourcesPath;
+            newPic.Filter = "Jpeg files (*.jpeg)|*.jpeg";
+            newPic.DefaultExt = ".jpeg";
+            if (newPic.ShowDialog() == DialogResult.OK)
+            {
+                if (newPic.FileName.StartsWith(resourcesPath))
+                {
+                    produto.imgPath = newPic.FileName.Remove(0,resourcesPath.Length);
+                    picProdutoEdit.BackgroundImage = Image.FromFile(newPic.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("A imagem tem que estar no diretório: " + resourcesPath);
+                }
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                produto.quantidade = int.Parse(textBox1.Text);
+            }
+            catch (Exception ex)
+            {
+                produto.preco = 12;
+                MessageBox.Show("Deve ser introduzido um valor inteiro\n" + ex.Message);
+            }
         }
     }
 }

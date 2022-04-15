@@ -1,4 +1,5 @@
-﻿using ModeloLoja.Users;
+﻿using ModeloLoja.Scripts;
+using ModeloLoja.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,13 +23,26 @@ namespace ModeloLoja.Products
 
         private void btnComprarProduto_Click(object sender, EventArgs e)
         {
-
+            if (Database.usuarioLogado.Money < produto.preco)
+            {
+                MessageBox.Show("Saldo insuficiente para comprar esse produto");
+                return;
+            }
+            else
+            {
+                Database.usuarioLogado.Money -= produto.preco;
+                produto.quantidade -= 1;
+                Database.EditarProduto(produto);
+                Database.EditarUsuario(Database.usuarioLogado);
+                ProdutoView_Load(sender, e);
+            }
         }
 
         private void ProdutoView_Load(object sender, EventArgs e)
         {
             lblNomeProduto.Text = produto.nome;
             lblDescricaoProduto.Text = produto.descricao;
+            lblEstoque.Text = "Estoque: " + produto.quantidade;
             lblPrecoProduto.Text = produto.preco.ToString("R$ #.00");
         }
     }

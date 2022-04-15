@@ -34,6 +34,7 @@ namespace ModeloLoja.Products
             this.btnComprarProduto = new System.Windows.Forms.Button();
             this.lblNomeProduto = new System.Windows.Forms.Label();
             this.picProduto = new System.Windows.Forms.PictureBox();
+            this.lblEstoque = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picProduto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,11 +88,22 @@ namespace ModeloLoja.Products
             this.picProduto.TabIndex = 0;
             this.picProduto.TabStop = false;
             // 
+            // lblEstoque
+            // 
+            this.lblEstoque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstoque.Location = new System.Drawing.Point(270, 50);
+            this.lblEstoque.Name = "lblEstoque";
+            this.lblEstoque.Size = new System.Drawing.Size(99, 17);
+            this.lblEstoque.TabIndex = 5;
+            this.lblEstoque.Text = "Estoque";
+            this.lblEstoque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ProdutoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.lblEstoque);
             this.Controls.Add(this.lblDescricaoProduto);
             this.Controls.Add(this.lblPrecoProduto);
             this.Controls.Add(this.btnComprarProduto);
@@ -112,5 +124,6 @@ namespace ModeloLoja.Products
         private System.Windows.Forms.Button btnComprarProduto;
         private System.Windows.Forms.Label lblNomeProduto;
         private System.Windows.Forms.PictureBox picProduto;
+        private System.Windows.Forms.Label lblEstoque;
     }
 }

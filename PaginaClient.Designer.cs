@@ -86,7 +86,7 @@ namespace ModeloLoja
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 49);
             this.panel1.Margin = new System.Windows.Forms.Padding(8);
@@ -94,6 +94,7 @@ namespace ModeloLoja
             this.panel1.Size = new System.Drawing.Size(498, 363);
             this.panel1.TabIndex = 3;
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
+            this.panel1.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
             // 
             // lblSaldo
             // 

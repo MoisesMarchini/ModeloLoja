@@ -30,11 +30,11 @@ namespace ModeloLoja
             if (Database.usuarioLogado.administrador)
             {
                 Text = "Início (Modo Administrador)";
+                panel1.Controls.Add(new NewProduct(panel1));
                 for (int i = 0; i < Database.dataTableProdutos.Rows.Count; i++)
                 {
                     AddAdminControl(i);
                 }
-                panel1.Controls.Add(new NewProduct(panel1));
             }
             else
             {
@@ -50,12 +50,12 @@ namespace ModeloLoja
 
         private void AddAdminControl(int i)
         {
-            Produto p = new Produto((int)Database.dataTableProdutos.Rows[i].ItemArray[0]);
+            Produto p = new Produto(Database.dataTableProdutos.Rows[i]);
             panel1.Controls.Add(new ProdutoEdit(p));
         }
         private void AddClientControl(int i)
         {
-            Produto p = new Produto((int)Database.dataTableProdutos.Rows[i].ItemArray[0]);
+            Produto p = new Produto(Database.dataTableProdutos.Rows[i]);
             panel1.Controls.Add(new ProdutoView(p));
         }
 
@@ -76,7 +76,22 @@ namespace ModeloLoja
             {
                 Control control = panel1.Controls[i];
                 control.Enabled = true;
-                control.SetBounds(13, 3 + i * 90, control.Width, control.Height);
+                if (Database.usuarioLogado.administrador)
+                {
+                    if (i != 0)
+                    {
+                        control.SetBounds(13, 3 + (i * (control.Height + 10)) - 70, control.Width, control.Height);
+                    }
+                    else
+                    {
+                        control.SetBounds(13, 3 + (i * (control.Height + 10)), control.Width, control.Height);
+                    }
+                }
+                else
+                {
+                    control.SetBounds(13, 3 + (i * (control.Height + 10)), control.Width, control.Height);
+                }
+
                 i++;
             }
         }

@@ -64,7 +64,7 @@ namespace ModeloLoja.Scripts
                     comando.CommandText = "INSERT INTO usuarios VALUES (" + 1 + ", 'admin', 'admin'," + 9999 + ", true)";
                     comando.ExecuteNonQuery();
                 }
-                comando.CommandText = "CREATE TABLE IF NOT EXISTS produtos ( id INT NOT NULL, nome VARCHAR(50), descricao VARCHAR(50), preco DOUBLE, estoque INT, PRIMARY KEY(id))";
+                comando.CommandText = "CREATE TABLE IF NOT EXISTS produtos ( id INT NOT NULL, nome VARCHAR(50), descricao VARCHAR(50), preco DOUBLE, estoque INT, imgpath VARCHAR(250), PRIMARY KEY(id))";
                 comando.ExecuteNonQuery();
                 dataTableProdutos = fillDataTable(db.produtos);
 
@@ -200,7 +200,27 @@ namespace ModeloLoja.Scripts
                 comando.Connection = conexao;
 
                 int id = (dataTableProdutos.Rows.Count + 1);
-                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto', 'Descricao do produto', " + (double)10 +", " + 20 + ")";
+
+                repetirQuery:
+                string query = "SELECT * FROM produtos WHERE id LIKE " + id;
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(query, strConnection);
+                DataTable dados = new DataTable();
+
+                if (conexao.State != ConnectionState.Open)
+                {
+                    conexao.Open();
+                }
+
+                int results = adaptador.Fill(dados);
+                if (results != 0)
+                {
+                    id++;
+                    goto repetirQuery;
+                }
+
+
+                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto', 'Descricao do produto', " + (double)10 +", " + 20 + ", '"+null+"')";
                 comando.ExecuteNonQuery();
                 comando.Dispose();
 
@@ -214,7 +234,37 @@ namespace ModeloLoja.Scripts
             {
                 conexao.Close();
             }
+
             return new Produto(dataTableProdutos.Rows.Count);
+        }
+        public static void ExcluirProduto(Produto produto)
+        {
+            try
+            {
+                conexao.Open();
+
+                MySqlCommand comando = new MySqlCommand(strConnection);
+                comando.Connection = conexao;
+
+                string query = "DELETE FROM produtos WHERE id = " + produto.id;
+
+
+                comando.CommandText = query;
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                dataTableProdutos = fillDataTable(db.produtos);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao Conectar ao servidor \n" + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+
         }
         public static void EditarProduto(Produto produto)
         {
@@ -225,7 +275,7 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand(strConnection);
                 comando.Connection = conexao;
 
-                string query = "UPDATE produtos SET nome = '"+produto.nome+"', descricao = '"+produto.descricao+"', preco="+produto.preco+", estoque="+produto.quantidade+" WHERE id LIKE "+produto.id;
+                string query = "UPDATE produtos SET nome = '"+produto.nome+"', descricao = '"+produto.descricao+"', preco="+produto.preco+", estoque="+produto.quantidade+ ", imgpath='" + produto.imgPath + "' WHERE id LIKE " + produto.id;
 
 
                 comando.CommandText = query;
@@ -233,6 +283,34 @@ namespace ModeloLoja.Scripts
                 comando.Dispose();
 
                 dataTableProdutos = fillDataTable(db.produtos);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao Conectar ao servidor \n" + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        public static void EditarUsuario(Usuario usuario)
+        {
+            try
+            {
+                conexao.Open();
+
+                MySqlCommand comando = new MySqlCommand(strConnection);
+                comando.Connection = conexao;
+
+                string query = "UPDATE usuarios SET saldo = " + usuario.Money + " WHERE nome LIKE " + usuario.Name;
+
+
+                comando.CommandText = query;
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                dataTableUsuarios = fillDataTable(db.usuarios);
 
             }
             catch (Exception ex)

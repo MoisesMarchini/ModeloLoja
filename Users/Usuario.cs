@@ -10,7 +10,7 @@ namespace ModeloLoja.Users
     {
         public string Name { get; private set; }
         public string Password { get; private set; }
-        public double Money { get; private set; }
+        public double Money { get; set; }
         public bool administrador { get; private set; }
 
         public Usuario(string name, string password)

@@ -12,6 +12,7 @@ namespace ModeloLoja.Config
     {
         public static Size LoginFormSize = new Size(346, 259);
         public static Size DefaultLayoutSize = new Size(514, 450);
+        public static string resourcesPath => Application.StartupPath + @"\Resources\";
 
         public static void SetDefaultSize(Form form, Size size)
         {
