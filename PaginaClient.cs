@@ -27,6 +27,7 @@ namespace ModeloLoja
         private void PaginaClient_Load(object sender, EventArgs e)
         {
             formLogin.Hide();
+            MainConfig.SetDefaultSize(this, MainConfig.DefaultLayoutSize);
             if (Database.usuarioLogado.administrador)
             {
                 Text = "Início (Modo Administrador)";
@@ -56,7 +57,7 @@ namespace ModeloLoja
         private void AddClientControl(int i)
         {
             Produto p = new Produto(Database.dataTableProdutos.Rows[i]);
-            panel1.Controls.Add(new ProdutoView(p));
+            panel1.Controls.Add(new ProdutoView(p, lblSaldo));
         }
 
         private void PaginaClient_FormClosing(object sender, FormClosingEventArgs e)

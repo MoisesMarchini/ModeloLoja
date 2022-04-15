@@ -82,6 +82,7 @@ namespace ModeloLoja.Products
             // 
             // picProduto
             // 
+            this.picProduto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.picProduto.Location = new System.Drawing.Point(7, 6);
             this.picProduto.Name = "picProduto";
             this.picProduto.Size = new System.Drawing.Size(102, 61);

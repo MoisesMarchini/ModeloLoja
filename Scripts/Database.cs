@@ -56,15 +56,15 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand();
                 comando.Connection = conexao;
 
-                comando.CommandText = "CREATE TABLE IF NOT EXISTS usuarios ( id INT NOT NULL, nome VARCHAR(50), password VARCHAR(50), saldo DOUBLE, admin BOOL, PRIMARY KEY(id))";
+                comando.CommandText = "CREATE TABLE IF NOT EXISTS usuarios ( id INT NOT NULL, nome VARCHAR(50), password VARCHAR(50), saldo VARCHAR(50), admin BOOL, PRIMARY KEY(id))";
                 comando.ExecuteNonQuery();
                 dataTableUsuarios = fillDataTable(db.usuarios);
                 if (dataTableUsuarios.Rows.Count == 0)
                 {
-                    comando.CommandText = "INSERT INTO usuarios VALUES (" + 1 + ", 'admin', 'admin'," + 9999 + ", true)";
+                    comando.CommandText = "INSERT INTO usuarios VALUES (" + 1 + ", 'admin', 'admin', '9999', true)";
                     comando.ExecuteNonQuery();
                 }
-                comando.CommandText = "CREATE TABLE IF NOT EXISTS produtos ( id INT NOT NULL, nome VARCHAR(50), descricao VARCHAR(50), preco DOUBLE, estoque INT, imgpath VARCHAR(250), PRIMARY KEY(id))";
+                comando.CommandText = "CREATE TABLE IF NOT EXISTS produtos ( id INT NOT NULL, nome VARCHAR(50), descricao VARCHAR(50), preco VARCHAR(50), estoque INT(2), imgpath VARCHAR(250), PRIMARY KEY(id))";
                 comando.ExecuteNonQuery();
                 dataTableProdutos = fillDataTable(db.produtos);
 
@@ -123,7 +123,7 @@ namespace ModeloLoja.Scripts
                 {
                     if (dados.Rows[0][2].ToString() == usuario.Password)
                     {
-                        usuarioLogado = new Usuario(usuario.Name, usuario.Password, (double)dados.Rows[0][3], (bool)dados.Rows[0][4]);
+                        usuarioLogado = new Usuario(usuario.Name, usuario.Password, double.Parse(dados.Rows[0][3].ToString()), (bool)dados.Rows[0][4]);
                         tentativa = true;
                     }
                 }
@@ -168,7 +168,7 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand(strConnection);
                 comando.Connection = conexao;
 
-                comando.CommandText = "INSERT INTO usuarios VALUES (" + (dataTableUsuarios.Rows.Count+1) + ", '" + usuarioLogado.Name + "', '" + usuarioLogado.Password + "', " + usuarioLogado.Money + ", "+ usuarioLogado.administrador +")";
+                comando.CommandText = "INSERT INTO usuarios VALUES (" + (dataTableUsuarios.Rows.Count+1) + ", '" + usuarioLogado.Name + "', '" + usuarioLogado.Password + "', '" + usuarioLogado.Money.ToString() + "', "+ usuarioLogado.administrador +")";
                 comando.ExecuteNonQuery();
                 comando.Dispose();
 
@@ -220,7 +220,7 @@ namespace ModeloLoja.Scripts
                 }
 
 
-                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto', 'Descricao do produto', " + (double)10 +", " + 20 + ", '"+null+"')";
+                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto', 'Descricao do produto', " + 10.00 +", " + 20 + ", '"+null+"')";
                 comando.ExecuteNonQuery();
                 comando.Dispose();
 
@@ -275,7 +275,7 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand(strConnection);
                 comando.Connection = conexao;
 
-                string query = "UPDATE produtos SET nome = '"+produto.nome+"', descricao = '"+produto.descricao+"', preco="+produto.preco+", estoque="+produto.quantidade+ ", imgpath='" + produto.imgPath + "' WHERE id LIKE " + produto.id;
+                string query = "UPDATE produtos SET nome = '" + produto.nome + "', descricao = '" + produto.descricao + "', preco = '" + produto.preco + "', estoque=" + produto.quantidade + ", imgpath='" + produto.imgPath + "' WHERE id LIKE " + produto.id;
 
 
                 comando.CommandText = query;
@@ -303,7 +303,7 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand(strConnection);
                 comando.Connection = conexao;
 
-                string query = "UPDATE usuarios SET saldo = " + usuario.Money + " WHERE nome LIKE " + usuario.Name;
+                string query = "UPDATE usuarios SET saldo = '" + usuario.Money.ToString() + "' WHERE nome LIKE '" + usuario.Name + "'";
 
 
                 comando.CommandText = query;

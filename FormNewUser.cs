@@ -51,7 +51,7 @@ namespace ModeloLoja
                 MessageBox.Show("A confirmação de senha tem que ser igual a senha", "Senha diferente da Confirmação");
                 return;
             }
-            if (Database.Cadastrar(new Usuario(txtBoxUserName.Text, txtBoxUserPass.Text)))
+            if (Database.Cadastrar(new Usuario(txtBoxUserName.Text, txtBoxUserPass.Text, 1600, checkBoxAdmin.Checked)))
             {
                 MessageBox.Show("Cadastro criado com sucesso");
                 Close();

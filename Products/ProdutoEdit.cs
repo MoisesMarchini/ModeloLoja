@@ -37,12 +37,11 @@ namespace ModeloLoja.Products
         {
             try
             {
-                produto.preco = int.Parse(txtPrecoProdutoEdit.Text);
+                produto.preco = double.Parse(txtPrecoProdutoEdit.Text);
                 txtPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
             }
             catch (Exception ex)
             {
-                produto.preco = 12;
                 MessageBox.Show("Deve ser introduzido um valor\n"+ex.Message);
             }
         }
@@ -54,6 +53,7 @@ namespace ModeloLoja.Products
             txtPrecoProdutoEdit.TabIndex = 3;
             txtNomeProdutoEdit.Text = produto.nome;
             txtDescProdutoEdit.Text = produto.descricao;
+            textBox1.Text = "Estoque: " + produto.quantidade.ToString();
             txtPrecoProdutoEdit.Text = produto.preco.ToString("R$ #.00");
             if (produto.imgPath != null && produto.imgPath != "")
             {
@@ -92,7 +92,17 @@ namespace ModeloLoja.Products
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void txtPrecoProdutoEdit_Enter(object sender, EventArgs e)
+        {
+            txtPrecoProdutoEdit.Text = produto.preco.ToString();
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            textBox1.Text = produto.quantidade.ToString();
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
         {
             try
             {
@@ -100,9 +110,9 @@ namespace ModeloLoja.Products
             }
             catch (Exception ex)
             {
-                produto.preco = 12;
                 MessageBox.Show("Deve ser introduzido um valor inteiro\n" + ex.Message);
             }
+            textBox1.Text = "Estoque: " + produto.quantidade.ToString();
         }
     }
 }

@@ -17,13 +17,7 @@ namespace ModeloLoja.Users
         {
             Name = name;
             Password = password;
-            Money = 100;
-        }
-        public Usuario(string name, string password, double money)
-        {
-            Name = name;
-            Password = password;
-            Money = money;
+            Money = 1000;
         }
         public Usuario(string name, string password, double money, bool admin)
         {

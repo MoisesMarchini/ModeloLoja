@@ -38,6 +38,7 @@ namespace ModeloLoja
             this.lblUserPassword2 = new System.Windows.Forms.Label();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
+            this.checkBoxAdmin = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnViewPass
@@ -57,7 +58,7 @@ namespace ModeloLoja
             this.txtBoxUserPass.MaxLength = 16;
             this.txtBoxUserPass.Name = "txtBoxUserPass";
             this.txtBoxUserPass.Size = new System.Drawing.Size(167, 20);
-            this.txtBoxUserPass.TabIndex = 12;
+            this.txtBoxUserPass.TabIndex = 2;
             this.txtBoxUserPass.UseSystemPasswordChar = true;
             // 
             // lblUserPassword
@@ -84,7 +85,7 @@ namespace ModeloLoja
             this.txtBoxUserName.MaxLength = 16;
             this.txtBoxUserName.Name = "txtBoxUserName";
             this.txtBoxUserName.Size = new System.Drawing.Size(198, 20);
-            this.txtBoxUserName.TabIndex = 9;
+            this.txtBoxUserName.TabIndex = 1;
             // 
             // txtBoxUserPass2
             // 
@@ -92,7 +93,7 @@ namespace ModeloLoja
             this.txtBoxUserPass2.MaxLength = 16;
             this.txtBoxUserPass2.Name = "txtBoxUserPass2";
             this.txtBoxUserPass2.Size = new System.Drawing.Size(167, 20);
-            this.txtBoxUserPass2.TabIndex = 15;
+            this.txtBoxUserPass2.TabIndex = 3;
             this.txtBoxUserPass2.UseSystemPasswordChar = true;
             // 
             // lblUserPassword2
@@ -106,10 +107,10 @@ namespace ModeloLoja
             // 
             // btnCadastrar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(128, 129);
+            this.btnCadastrar.Location = new System.Drawing.Point(128, 145);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(75, 23);
-            this.btnCadastrar.TabIndex = 16;
+            this.btnCadastrar.TabIndex = 5;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
             this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
@@ -119,16 +120,27 @@ namespace ModeloLoja
             this.btnVoltar.Location = new System.Drawing.Point(128, 186);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(75, 23);
-            this.btnVoltar.TabIndex = 17;
+            this.btnVoltar.TabIndex = 6;
             this.btnVoltar.Text = "Voltar";
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
+            // 
+            // checkBoxAdmin
+            // 
+            this.checkBoxAdmin.AutoSize = true;
+            this.checkBoxAdmin.Location = new System.Drawing.Point(97, 115);
+            this.checkBoxAdmin.Name = "checkBoxAdmin";
+            this.checkBoxAdmin.Size = new System.Drawing.Size(89, 17);
+            this.checkBoxAdmin.TabIndex = 4;
+            this.checkBoxAdmin.Text = "Administrador";
+            this.checkBoxAdmin.UseVisualStyleBackColor = true;
             // 
             // FormNewUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 221);
+            this.Controls.Add(this.checkBoxAdmin);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.btnCadastrar);
             this.Controls.Add(this.txtBoxUserPass2);
@@ -160,5 +172,6 @@ namespace ModeloLoja
         private System.Windows.Forms.Label lblUserPassword2;
         private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.Button btnVoltar;
+        private System.Windows.Forms.CheckBox checkBoxAdmin;
     }
 }

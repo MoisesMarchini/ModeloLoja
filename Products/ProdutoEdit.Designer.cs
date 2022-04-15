@@ -48,6 +48,7 @@ namespace ModeloLoja.Products
             this.txtPrecoProdutoEdit.Size = new System.Drawing.Size(73, 20);
             this.txtPrecoProdutoEdit.TabIndex = 9;
             this.txtPrecoProdutoEdit.Text = "Custo";
+            this.txtPrecoProdutoEdit.Enter += new System.EventHandler(this.txtPrecoProdutoEdit_Enter);
             this.txtPrecoProdutoEdit.Leave += new System.EventHandler(this.txtPrecoProdutoEdit_Leave);
             // 
             // txtDescProdutoEdit
@@ -129,7 +130,8 @@ namespace ModeloLoja.Products
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "Estoque";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // ProdutoEdit
             // 

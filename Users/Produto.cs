@@ -23,7 +23,7 @@ namespace ModeloLoja.Users
 
             nome = Database.dataTableProdutos.Rows[id-1].ItemArray[1].ToString();
             descricao = Database.dataTableProdutos.Rows[id-1].ItemArray[2].ToString();
-            preco = (double)Database.dataTableProdutos.Rows[id-1].ItemArray[3];
+            preco = double.Parse(Database.dataTableProdutos.Rows[id-1].ItemArray[3].ToString());
             quantidade = (int)Database.dataTableProdutos.Rows[id - 1].ItemArray[4];
             imgPath = Database.dataTableProdutos.Rows[id - 1].ItemArray[5].ToString();
         }
@@ -32,7 +32,7 @@ namespace ModeloLoja.Users
             id = (int)row.ItemArray[0];
             nome = row.ItemArray[1].ToString();
             descricao = row.ItemArray[2].ToString();
-            preco = (double)row.ItemArray[3];
+            preco = double.Parse(row.ItemArray[3].ToString());
             quantidade = (int)row.ItemArray[4];
             imgPath = row.ItemArray[5].ToString();
         }
