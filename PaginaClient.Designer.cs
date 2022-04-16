@@ -36,6 +36,8 @@ namespace ModeloLoja
             this.trocarUsuárioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblSaldo = new System.Windows.Forms.Label();
+            this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +68,9 @@ namespace ModeloLoja
             // 
             this.opçõesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.minhasComprasToolStripMenuItem,
-            this.trocarUsuárioToolStripMenuItem});
+            this.toolStripSeparator1,
+            this.trocarUsuárioToolStripMenuItem,
+            this.fecharToolStripMenuItem});
             this.opçõesToolStripMenuItem.Name = "opçõesToolStripMenuItem";
             this.opçõesToolStripMenuItem.Size = new System.Drawing.Size(59, 45);
             this.opçõesToolStripMenuItem.Text = "Opções";
@@ -74,14 +78,16 @@ namespace ModeloLoja
             // minhasComprasToolStripMenuItem
             // 
             this.minhasComprasToolStripMenuItem.Name = "minhasComprasToolStripMenuItem";
-            this.minhasComprasToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.minhasComprasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.minhasComprasToolStripMenuItem.Text = "Minhas compras";
+            this.minhasComprasToolStripMenuItem.Click += new System.EventHandler(this.minhasComprasToolStripMenuItem_Click);
             // 
             // trocarUsuárioToolStripMenuItem
             // 
             this.trocarUsuárioToolStripMenuItem.Name = "trocarUsuárioToolStripMenuItem";
-            this.trocarUsuárioToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.trocarUsuárioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.trocarUsuárioToolStripMenuItem.Text = "Trocar Usuário";
+            this.trocarUsuárioToolStripMenuItem.Click += new System.EventHandler(this.trocarUsuárioToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -108,6 +114,18 @@ namespace ModeloLoja
             this.lblSaldo.Size = new System.Drawing.Size(282, 29);
             this.lblSaldo.TabIndex = 4;
             this.lblSaldo.Text = "Saldo: ";
+            // 
+            // fecharToolStripMenuItem
+            // 
+            this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
+            this.fecharToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fecharToolStripMenuItem.Text = "Fechar";
+            this.fecharToolStripMenuItem.Click += new System.EventHandler(this.fecharToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // PaginaClient
             // 
@@ -141,5 +159,7 @@ namespace ModeloLoja
         private System.Windows.Forms.ToolStripMenuItem trocarUsuárioToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblSaldo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem fecharToolStripMenuItem;
     }
 }

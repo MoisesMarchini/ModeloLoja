@@ -28,23 +28,7 @@ namespace ModeloLoja
         {
             formLogin.Hide();
             MainConfig.SetDefaultSize(this, MainConfig.DefaultLayoutSize);
-            if (Database.usuarioLogado.administrador)
-            {
-                Text = "Início (Modo Administrador)";
-                panel1.Controls.Add(new NewProduct(panel1));
-                for (int i = 0; i < Database.dataTableProdutos.Rows.Count; i++)
-                {
-                    AddAdminControl(i);
-                }
-            }
-            else
-            {
-                Text = "Início";
-                for (int i = 0; i < Database.dataTableProdutos.Rows.Count; i++)
-                {
-                    AddClientControl(i);
-                }
-            }
+            LoadProducts();
             lblUsername.Text = "Usuário: "+ Database.usuarioLogado.Name;
             lblSaldo.Text = "Saldo: " + Database.usuarioLogado.Money.ToString("R$ #.00");
         }
@@ -95,6 +79,46 @@ namespace ModeloLoja
         private void panel1_Scroll(object sender, ScrollEventArgs e)
         {
 
+        }
+
+        private void trocarUsuárioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void fecharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void minhasComprasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadProducts()
+        {
+            bool admin = Database.usuarioLogado.administrador;
+            Text = admin? "Início (Modo Administrador)" : "Início";
+            if (admin)
+            {
+                panel1.Controls.Add(new NewProduct(panel1));
+                minhasComprasToolStripMenuItem.Visible = false;
+                toolStripSeparator1.Visible = false;
+                for (int i = 0; i < Database.dataTableProdutos.Rows.Count; i++)
+                {
+                    AddAdminControl(i);
+                }
+            }
+            else
+            {
+                minhasComprasToolStripMenuItem.Visible = true;
+                toolStripSeparator1.Visible = true;
+                for (int i = 0; i < Database.dataTableProdutos.Rows.Count; i++)
+                {
+                    AddClientControl(i);
+                }
+            }
         }
     }
 }
