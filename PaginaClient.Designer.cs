@@ -86,13 +86,16 @@ namespace ModeloLoja
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 49);
             this.panel1.Margin = new System.Windows.Forms.Padding(8);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(498, 363);
+            this.panel1.Size = new System.Drawing.Size(498, 355);
             this.panel1.TabIndex = 3;
+            this.panel1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel1_Scroll);
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
             this.panel1.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
             // 
@@ -117,6 +120,7 @@ namespace ModeloLoja
             this.Controls.Add(this.menuStrip1);
             this.MaximizeBox = false;
             this.Name = "PaginaClient";
+            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Início";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PaginaClient_FormClosing);
@@ -124,6 +128,7 @@ namespace ModeloLoja
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -223,6 +223,7 @@ namespace ModeloLoja.Scripts
         }
         public static Produto NovoProduto()
         {
+            int id = 0;
             try
             {
                 conexao.Open();
@@ -230,7 +231,6 @@ namespace ModeloLoja.Scripts
                 MySqlCommand comando = new MySqlCommand(strConnection);
                 comando.Connection = conexao;
 
-                int id = (dataTableProdutos.Rows.Count + 1);
 
                 repetirQuery:
                 string query = "SELECT * FROM produtos WHERE id LIKE " + id;
@@ -251,7 +251,7 @@ namespace ModeloLoja.Scripts
                 }
 
 
-                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto', 'Descricao do produto', " + 10.00 +", " + 20 + ", '"+null+"')";
+                comando.CommandText = "INSERT INTO produtos VALUES (" + id + ", 'Nome do produto #"+(id+1).ToString()+"', 'Descricao do produto', " + 10.00 +", " + 20 + ", '"+null+"')";
                 comando.ExecuteNonQuery();
                 comando.Dispose();
 
@@ -266,7 +266,7 @@ namespace ModeloLoja.Scripts
                 conexao.Close();
             }
 
-            return new Produto(dataTableProdutos.Rows.Count);
+            return new Produto(dataTableProdutos.Rows[id]);
         }
         public static void ExcluirProduto(Produto produto)
         {

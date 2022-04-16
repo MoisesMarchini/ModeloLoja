@@ -17,12 +17,14 @@ namespace ModeloLoja.Products
     public partial class ProdutoEdit : UserControl
     {
         public Produto produto;
+        public Panel panelParent;
         private string resourcesPath = MainConfig.resourcesPath;
 
-        public ProdutoEdit(Produto _produto)
+        public ProdutoEdit(Produto _produto, Panel _parentPanel)
         {
             InitializeComponent();
             produto = _produto;
+            panelParent = _parentPanel;
         }
 
         private void txtNomeProdutoEdit_Leave(object sender, EventArgs e)
@@ -69,6 +71,7 @@ namespace ModeloLoja.Products
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             Database.ExcluirProduto(produto);
+            panelParent.Controls.Remove(this);
             this.DestroyHandle();
         }
 

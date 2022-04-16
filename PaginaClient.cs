@@ -52,7 +52,7 @@ namespace ModeloLoja
         private void AddAdminControl(int i)
         {
             Produto p = new Produto(Database.dataTableProdutos.Rows[i]);
-            panel1.Controls.Add(new ProdutoEdit(p));
+            panel1.Controls.Add(new ProdutoEdit(p, panel1));
         }
         private void AddClientControl(int i)
         {
@@ -72,29 +72,29 @@ namespace ModeloLoja
         private void panel1RearrangeControls()
         {
             int i = 0;
-            panel1.Size = new Size(477, 348);
-            foreach (var item in panel1.Controls)
+            panel1.ScrollControlIntoView(panel1.Controls[0]);
+            foreach (Control control in panel1.Controls)
             {
-                Control control = panel1.Controls[i];
                 control.Enabled = true;
+
+                int multiplier = (i * control.Height + 10);
                 if (Database.usuarioLogado.administrador)
                 {
                     if (i != 0)
                     {
-                        control.SetBounds(13, 3 + (i * (control.Height + 10)) - 70, control.Width, control.Height);
-                    }
-                    else
-                    {
-                        control.SetBounds(13, 3 + (i * (control.Height + 10)), control.Width, control.Height);
+                        multiplier = (i * control.Height + 10) - 70;
                     }
                 }
-                else
-                {
-                    control.SetBounds(13, 3 + (i * (control.Height + 10)), control.Width, control.Height);
-                }
+
+                control.SetBounds(13, 3 + (multiplier), control.Width, control.Height);
 
                 i++;
             }
+        }
+
+        private void panel1_Scroll(object sender, ScrollEventArgs e)
+        {
+
         }
     }
 }

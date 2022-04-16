@@ -23,7 +23,7 @@ namespace ModeloLoja.Products
 
         private void button1_Click(object sender, EventArgs e)
         {
-            productParent.Controls.Add(new ProdutoEdit(Database.NovoProduto()));
+            productParent.Controls.Add(new ProdutoEdit(Database.NovoProduto(),productParent));
         }
     }
 }
