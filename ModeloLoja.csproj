@@ -150,7 +150,9 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\MainConfig.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IMG_Produto %281%29.jpeg" />
   </ItemGroup>

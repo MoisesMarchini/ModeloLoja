@@ -1,0 +1,11 @@
+﻿# Ip do servidor MySQL
+127.0.0.1
+
+# Nome do usuário Root no MySQL
+root
+
+# Senha do usuário Root no MySQL
+1234
+
+# Nome que será dado para o banco de dados
+modeloloja

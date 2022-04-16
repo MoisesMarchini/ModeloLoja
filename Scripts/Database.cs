@@ -1,4 +1,5 @@
-﻿using ModeloLoja.Users;
+﻿using ModeloLoja.Config;
+using ModeloLoja.Users;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
@@ -10,7 +11,10 @@ namespace ModeloLoja.Scripts
     {
         public enum db { usuarios, produtos }
         public static Usuario usuarioLogado { get; set; }
-        public static string serverIp = "127.0.0.1";
+        public static string serverIp = MainConfig.serverIp;
+        public static string serverUser = MainConfig.serverUser;
+        public static string serverPass = MainConfig.serverPass;
+        public static string serverName = MainConfig.serverName;
         public static string strConnection;
         public static MySqlConnection conexao = new MySqlConnection();
 
@@ -19,7 +23,7 @@ namespace ModeloLoja.Scripts
 
         public static void ImportDatabase()
         {
-            strConnection = "server='" + serverIp + "';User Id=root;password=1234";
+            strConnection = "server='" + serverIp + "';User Id='"+serverUser+"';password='"+serverPass+"'";
             conexao.ConnectionString = strConnection;
 
             try
@@ -47,7 +51,7 @@ namespace ModeloLoja.Scripts
 
         public static void ImportTables()
         {
-            strConnection = "server='" + serverIp + "';User Id=root;database=modeloloja;password=1234";
+            strConnection = "server='" + serverIp + "';User Id='" + serverUser + "'; database='"+ serverName +"';password='" + serverPass + "'";
             conexao.ConnectionString = strConnection;
             try
             {
@@ -189,7 +193,34 @@ namespace ModeloLoja.Scripts
 
             return tentativa;
         }
+        public static void EditarUsuario(Usuario usuario)
+        {
+            try
+            {
+                conexao.Open();
 
+                MySqlCommand comando = new MySqlCommand(strConnection);
+                comando.Connection = conexao;
+
+                string query = "UPDATE usuarios SET saldo = '" + usuario.Money.ToString() + "' WHERE nome LIKE '" + usuario.Name + "'";
+
+
+                comando.CommandText = query;
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                dataTableUsuarios = fillDataTable(db.usuarios);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao Conectar ao servidor \n" + ex.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
         public static Produto NovoProduto()
         {
             try
@@ -283,34 +314,6 @@ namespace ModeloLoja.Scripts
                 comando.Dispose();
 
                 dataTableProdutos = fillDataTable(db.produtos);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao Conectar ao servidor \n" + ex.Message);
-            }
-            finally
-            {
-                conexao.Close();
-            }
-        }
-        public static void EditarUsuario(Usuario usuario)
-        {
-            try
-            {
-                conexao.Open();
-
-                MySqlCommand comando = new MySqlCommand(strConnection);
-                comando.Connection = conexao;
-
-                string query = "UPDATE usuarios SET saldo = '" + usuario.Money.ToString() + "' WHERE nome LIKE '" + usuario.Name + "'";
-
-
-                comando.CommandText = query;
-                comando.ExecuteNonQuery();
-                comando.Dispose();
-
-                dataTableUsuarios = fillDataTable(db.usuarios);
 
             }
             catch (Exception ex)
